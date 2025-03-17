@@ -50,15 +50,23 @@ if exist "%binFolder%" (
                 )
             )
 
-            :: NEW FEATURE: Run uninstall\registry.bat if it exists
+            :: Step 4: Run uninstall\registry.bat if it exists
             set "uninstallSubfolder=%batFilesLocal%\%%~nA\uninstall"
             set "registryFile=!uninstallSubfolder!\registry.bat"
-
+			
+			set "storedDirectory=!CD!"
+			
+			
             if exist "!uninstallSubfolder!\" (
+				echo Current directory is: !CD!
                 echo Found uninstall folder: "!uninstallSubfolder!"
+
                 if exist "!registryFile!" (
                     echo Running registry script: "!registryFile!"
-                    call "!registryFile!"
+					cd "!uninstallSubfolder!"
+                    call registry.bat
+					cd "!storedDirectory!"
+					pause
                     if errorlevel 1 (
                         echo Error occurred while running registry.bat. Continuing...
                     )
