@@ -66,7 +66,6 @@ if exist "%binFolder%" (
 					cd "!uninstallSubfolder!"
                     call registry.bat
 					cd "!storedDirectory!"
-					pause
                     if errorlevel 1 (
                         echo Error occurred while running registry.bat. Continuing...
                     )
